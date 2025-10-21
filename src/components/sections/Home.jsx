@@ -6,8 +6,12 @@ export const Home = () => {
   const rotatorRef = useRef(null);
 
   const groups = [
-    { text: "Bem vindo ao meu site!" },
-    { text: "Isso é um exemplo de rotator." },
+    { text: "Oi..." },
+    { text: "Nunca fiz algo do tipo, mas achei q seria uma boa ideia" },
+    { text: "Pensei em fazer algo para te dizer o que eu sinto, nunca consigo achar as palavras certas kkkk" },
+    { text: "E provavelmente vão faltar palavras aqui, quando se trata de você nem todas as palavras do mundo são suficientes" },
+    { text: "Sempre que penso em você meu peito se enche de alegria... minha mente fica nas nuvens de tão avoado" },
+    { text: "Meu coração sempre se aquece quando vejo uma foto sua... e quando te vejo pessoalmente só falta ele pular pela minha boca" },
     {
       text: "Aqui aparece uma imagem apenas nesta frase.",
       extras: (
@@ -30,7 +34,7 @@ export const Home = () => {
             <TextRotator
               ref={rotatorRef}
               groups={groups}
-              letterDelay={100}
+              letterDelay={150}
               transitionDuration={500}
               showControls={true}
               mobileBreakpoint={768}
