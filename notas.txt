@@ -1,0 +1,1 @@
+Cada frase deve ter no maximo 13 linhas (cerca de 26 palavras)

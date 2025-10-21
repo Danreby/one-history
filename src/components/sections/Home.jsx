@@ -5,13 +5,21 @@ import TextRotator from "../buttons/TextRotator";
 export const Home = () => {
   const rotatorRef = useRef(null);
 
-  const phrases = [
-    "Bem vindo ao meu site!",
-    "Isso é um exemplo de rotator.",
-    "Cada letra aparece uma a uma.",
-    "Os botões somem enquanto escrevo."
+  const groups = [
+    { text: "Bem vindo ao meu site!" },
+    { text: "Isso é um exemplo de rotator." },
+    {
+      text: "Aqui aparece uma imagem apenas nesta frase.",
+      extras: (
+        <img
+          src="/one-history/img/linda_menina.png"
+          alt="Exemplo ilustrativo"
+          className="w-40 h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "Os botões somem enquanto escrevo." },
   ];
-
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative">
@@ -20,7 +28,7 @@ export const Home = () => {
           <div className="mb-8">
             <TextRotator
               ref={rotatorRef}
-              phrases={phrases}
+              groups={groups}
               letterDelay={50}
               transitionDuration={500}
               showControls={true}
