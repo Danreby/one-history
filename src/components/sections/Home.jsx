@@ -22,7 +22,6 @@ export const Home = () => {
         />
       ),
     },
-    { text: "Os botões somem enquanto escrevo." },
   ];
 
 
