@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
-import TextRotator from "../buttons/TextRotator";
+import TextRotator from "../common/buttons/TextRotator";
 
 export const Home = () => {
   const rotatorRef = useRef(null);
