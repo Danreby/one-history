@@ -1,25 +1,35 @@
+import React, { useRef } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
+import TextRotator from "../buttons/TextRotator";
 
-export const Home = ({}) => {
+export const Home = () => {
+  const rotatorRef = useRef(null);
 
-  const handleScroll = (event, sectionId) => {
-    event.preventDefault();
-    const el = document.getElementById(sectionId);
-    if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  const phrases = [
+    "Bem vindo ao meu site!",
+    "Isso é um exemplo de rotator.",
+    "Cada letra aparece uma a uma.",
+    "Os botões somem enquanto escrevo."
+  ];
 
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative">
       <RevealOnScroll>
         <div className="text-center z-10 px-4">
-          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent leading-right uppercase">
-              Ola
-          </h1>
+          <div className="mb-8">
+            <TextRotator
+              ref={rotatorRef}
+              phrases={phrases}
+              letterDelay={50}
+              transitionDuration={500}
+              showControls={true}
+            />
+          </div>
         </div>
       </RevealOnScroll>
     </section>
   );
-}
+};
+
+export default Home;

@@ -1,79 +1,59 @@
 @import "tailwindcss";
 
-html, body{
+html, body {
   margin: 0;
   padding: 0;
   font-family: "Space Grotesk", sans-serif;
   background-color: #0a0a0a;
   color: #f3f4f6;
 }
-  
+
 @layer utilities {
   @keyframes blink {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
-
   .animate-blink {
     animation: blink 0.8s step-end infinite;
   }
-  
-  @keyframes loading {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(250%);
-    }
-  }
 
+  @keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+  }
   .animate-loading-bar {
     animation: loading 0.8s linear infinite;
   }
+
+  @keyframes fadeInFromRight {
+    from { opacity: 0; transform: translateX(18px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeOutToLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-18px); }
+  }
+  @keyframes buttonsFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in-right { animation: fadeInFromRight 500ms ease forwards; }
+  .fade-out-left { animation: fadeOutToLeft 500ms ease forwards; }
+  .buttons-hidden { opacity: 0; pointer-events: none; transition: opacity 150ms ease; }
+  .buttons-fade-in { animation: buttonsFadeIn 300ms ease forwards; pointer-events: auto; }
 }
 
-.reveal{
+.reveal {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-
-.reveal.visible{
+.reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-@keyframes gradientAnimation {
-  0%   { background-position:   0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position:   0% 50%; }
-}
-
-.findme-led-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  border-radius: inherit;
-  background: linear-gradient(
-    45deg,
-    #820082,
-    #6600ff,
-    #010424,
-    #00ffff
-  );
-  background-size: 300% 300%;
-  animation: gradientAnimation 4s linear infinite;
-  filter: blur(3px); 
-  z-index: -1;     
-  
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
+.text-rotator-placeholder {
+  min-height: 3.5rem;
 }
