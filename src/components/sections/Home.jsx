@@ -13,13 +13,14 @@ export const Home = () => {
       extras: (
         <img
           src="/one-history/img/linda_menina.png"
-          alt="Exemplo ilustrativo"
+          alt="Linda Moça"
           className="w-40 h-auto rounded-md shadow-md"
         />
       ),
     },
     { text: "Os botões somem enquanto escrevo." },
   ];
+
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative">
@@ -29,9 +30,10 @@ export const Home = () => {
             <TextRotator
               ref={rotatorRef}
               groups={groups}
-              letterDelay={50}
+              letterDelay={100}
               transitionDuration={500}
               showControls={true}
+              mobileBreakpoint={768}
             />
           </div>
         </div>

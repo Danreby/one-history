@@ -37,6 +37,14 @@ html, body {
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes fadeInFromLeft {
+    from { opacity: 0; transform: translateX(-18px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeOutToRight {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(18px); }
+  }
 
   .fade-in-right { animation: fadeInFromRight 500ms ease forwards; }
   .fade-out-left { animation: fadeOutToLeft 500ms ease forwards; }
@@ -56,4 +64,19 @@ html, body {
 
 .text-rotator-placeholder {
   min-height: 3.5rem;
+}
+
+.fade-in-left { animation: fadeInFromLeft 500ms ease forwards; }
+.fade-out-right { animation: fadeOutToRight 500ms ease forwards; }
+
+.text-rotator-draggable {
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.text-rotator-draggable:active,
+.text-rotator-draggable.dragging {
+  cursor: grabbing;
 }
