@@ -7,13 +7,16 @@ import React, {
 } from "react";
 
 const TextRotator = forwardRef(
-  ({
-    groups = [],
-    letterDelay = 50,
-    transitionDuration = 500,
-    showControls = true,
-    mobileBreakpoint = 768,
-  }, ref) => {
+  (
+    {
+      groups = [],
+      letterDelay = 50,
+      transitionDuration = 500,
+      showControls = true,
+      mobileBreakpoint = 768,
+    },
+    ref
+  ) => {
     const [index, setIndex] = useState(0);
     const [visibleText, setVisibleText] = useState("");
     const [isTyping, setIsTyping] = useState(false);
@@ -35,6 +38,8 @@ const TextRotator = forwardRef(
     const [isMobile, setIsMobile] = useState(
       typeof window !== "undefined" ? window.innerWidth <= mobileBreakpoint : false
     );
+
+    const [inputValue, setInputValue] = useState(() => (groups.length > 0 ? "1" : "0"));
 
     useImperativeHandle(
       ref,
@@ -68,7 +73,8 @@ const TextRotator = forwardRef(
         setIndex(idx);
         startTyping(idx);
       }
-    }, [groups]);
+      setInputValue(groups.length > 0 ? String(index + 1) : "0");
+    }, [groups, index]);
 
     function clearAllTimers() {
       if (typingTimerRef.current) {
@@ -97,7 +103,7 @@ const TextRotator = forwardRef(
         extrasRef.current.classList.add("buttons-hidden");
       }
 
-      setAnimClass((prev) => prev.includes("fade-in") ? prev : "fade-in-right");
+      setAnimClass((prev) => (prev.includes("fade-in") ? prev : "fade-in-right"));
 
       let pos = 0;
       typingTimerRef.current = setInterval(() => {
@@ -125,7 +131,7 @@ const TextRotator = forwardRef(
     }
 
     function goToIndex(nextIndex, dir = "next") {
-      if (isTyping) return; 
+      if (isTyping) return;
 
       clearAllTimers();
 
@@ -137,8 +143,7 @@ const TextRotator = forwardRef(
 
       transitionTimerRef.current = setTimeout(() => {
         if (!mountedRef.current) return;
-        const idx =
-          ((nextIndex % groups.length) + groups.length) % groups.length;
+        const idx = ((nextIndex % groups.length) + groups.length) % groups.length;
         setIndex(idx);
 
         if (dir === "next") {
@@ -158,7 +163,7 @@ const TextRotator = forwardRef(
 
     function onPointerDown(e) {
       if (!isMobile) return;
-      if (isTyping) return; 
+      if (isTyping) return;
       if (e.button && e.button !== 0) return;
       const target = e.currentTarget;
       try {
@@ -197,7 +202,8 @@ const TextRotator = forwardRef(
         setDragOffset(0);
       }
       try {
-        if (pointerIdRef.current !== null) e.currentTarget.releasePointerCapture(pointerIdRef.current);
+        if (pointerIdRef.current !== null)
+          e.currentTarget.releasePointerCapture(pointerIdRef.current);
       } catch (err) {}
       pointerIdRef.current = null;
     }
@@ -207,13 +213,51 @@ const TextRotator = forwardRef(
       draggingRef.current = false;
       setDragOffset(0);
       try {
-        if (pointerIdRef.current !== null) e.currentTarget.releasePointerCapture(pointerIdRef.current);
+        if (pointerIdRef.current !== null)
+          e.currentTarget.releasePointerCapture(pointerIdRef.current);
       } catch (err) {}
       pointerIdRef.current = null;
     }
 
     const currentGroup = groups[index] ?? {};
     const extras = currentGroup.extras ?? null;
+
+    function handleInputChange(e) {
+      const val = e.target.value.replace(/[^0-9]/g, "");
+      setInputValue(val);
+    }
+
+    function commitInputValue() {
+      if (!groups || groups.length === 0) return;
+      const parsed = parseInt(inputValue, 10);
+      if (Number.isNaN(parsed)) {
+        // reset to current
+        setInputValue(String(index + 1));
+        return;
+      }
+      let target = Math.max(1, Math.min(parsed, groups.length));
+      const targetIdx = target - 1;
+      if (targetIdx === index) {
+        setInputValue(String(index + 1));
+        return;
+      }
+      goToIndex(targetIdx, targetIdx > index ? "next" : "prev");
+    }
+
+    function handleInputKeyDown(e) {
+      if (e.key === "Enter") {
+        commitInputValue();
+        e.currentTarget.blur();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const next = Math.min(groups.length, (parseInt(inputValue || "0", 10) || 0) + 1);
+        setInputValue(String(next));
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const prev = Math.max(1, (parseInt(inputValue || "0", 10) || 0) - 1);
+        setInputValue(String(prev));
+      }
+    }
 
     return (
       <div
@@ -251,7 +295,7 @@ const TextRotator = forwardRef(
         {showControls && (
           <div
             ref={controlsRef}
-            className="mt-6 flex items-center justify-center gap-8"
+            className="mt-6 flex items-center justify-center gap-4"
             style={{
               transform: `translateX(${dragOffset * 0.25}px)`,
               transition: draggingRef.current ? "none" : `transform ${transitionDuration}ms ease`,
@@ -261,16 +305,32 @@ const TextRotator = forwardRef(
               onClick={handlePrev}
               disabled={isTyping}
               aria-label="Anterior"
-              className="text-gray-400 font-bold text-2xl leading-none transition"
+              className="text-gray-400 font-bold text-2xl leading-none transition p-2 disabled:opacity-40"
             >
               ←
             </button>
+
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={inputValue}
+                onChange={handleInputChange}
+                onKeyDown={handleInputKeyDown}
+                onBlur={commitInputValue}
+                disabled={isTyping}
+                aria-label="Número do texto atual — digite um número e pressione Enter"
+                className="w-10 text-center border-gray-300 text-lg focus:outline-none"
+              />
+              <div className="text-sm select-none">/ {groups.length || 0}</div>
+            </div>
 
             <button
               onClick={handleNext}
               disabled={isTyping}
               aria-label="Próxima"
-              className="text-gray-400 font-bold text-2xl leading-none transition"
+              className="text-gray-400 font-bold text-2xl leading-none transition p-2 disabled:opacity-40"
             >
               →
             </button>
