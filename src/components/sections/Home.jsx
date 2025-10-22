@@ -1,9 +1,55 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
 import TextRotator from "../common/buttons/TextRotator";
 
 export const Home = () => {
   const rotatorRef = useRef(null);
+
+  const [dateLife, setDateLife] = useState("");
+  const [dateLifeAlone, setDateLifeAlone] = useState(0);
+  const [displayDateLifeAloneExtense, setDisplayDateLifeAloneExtense] = useState("");
+
+  useEffect(() => {
+    const startUTC = Date.UTC(2003, 3, 15); 
+    const today = new Date();
+    const todayUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+    const msPerDay = 1000 * 60 * 60 * 24;
+    setDateLife(Math.floor((todayUTC - startUTC) / msPerDay));
+
+    const startAloneY = 2022;
+    const startAloneM = 11;
+    const startAloneD = 7;
+
+    const startAloneUTC = Date.UTC(startAloneY, startAloneM, startAloneD);
+    const totalDaysAlone = Math.floor((todayUTC - startAloneUTC) / msPerDay);
+    setDateLifeAlone(totalDaysAlone);
+
+    const currY = today.getUTCFullYear();
+    const currM = today.getUTCMonth();
+    const currD = today.getUTCDate();
+
+    let years = currY - startAloneY;
+    let months = currM - startAloneM;
+    let days = currD - startAloneD;
+
+    if (days < 0) {
+      const daysInPrevMonth = new Date(Date.UTC(currY, currM, 0)).getUTCDate();
+      days += daysInPrevMonth;
+      months -= 1;
+    }
+
+    if (months < 0) {
+      months += 12;
+      years -= 1;
+    }
+
+    const yLabel = `${years} ano${years !== 1 ? "s" : ""}`;
+    const mLabel = `${months} mês${months !== 1 ? "es" : ""}`;
+    const dLabel = `${days} dia${days !== 1 ? "s" : ""}`;
+
+    setDisplayDateLifeAloneExtense(`${yLabel}, ${mLabel} e ${dLabel}`);
+  }, []);
+
 
   const groups = [
     { text: "Oi..." },
@@ -120,7 +166,26 @@ export const Home = () => {
     { text: "O que seria isso se não um sonho? a garota que eu amo comigo novamente, não em um evento de alguma pessoa em comum... mas sim por que ela me queria por perto"},
     { text: "Fomos pro evento, e ele foi incrível de tantas maneiras, o local, as pessoas, o clima, o evento... você... tudo perfeito e maravilhoso"},
     { text: "Por mais que você não tivesse gostado da parte da tarde, pra mim foi tudo incrível... por que você tava lá..."},
-    { text: "O evento em si foi muito bom, o culto, os louvores, mas ele só foi maravilhoso por que você estava lá"},
+    { text: "O evento em si foi muito bom, o culto, os louvores, o pessoal lá, tudo incrivel e uma paz indescritível",
+      extras: (
+        <img
+          src="/one-history/img/unjadimo_all.jpg"
+          alt="Linda Moça"
+          className=" h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "Mas ele só foi maravilhoso..."
+    },
+    { text: "Por que você estava lá",
+      extras: (
+        <img
+          src="/one-history/img/th_event.jpg"
+          alt="Linda Moça"
+          className="w-40 h-auto rounded-md shadow-md"
+        />
+      ),
+    },
     { text: "Passar um dia com você... mágico e perfeito... mas ainda tinha dúvidas... por quê me chamou? por quê me queria lá? sei que não queria mais nada entre a gente então..."},
     { text: "Por quê me convidou? até mesmo pra dormir na sua casa... mas eu sabia o por quê... você só queria que eu fosse, nada além disso, eu era só mais um amigo te acompanhando"},
     { text: "Então pensei em dizer o que eu sentia... novamente conversar sobre a possibilidade"},
@@ -138,7 +203,117 @@ export const Home = () => {
     { text: "Tentei falar o que tava minha mente, por mais embolado e confuso que tava... mas nada adiantou... e ali eu sabia q tinha pisado na bola dnv..."},
     { text: "Sabia que ali eu tinha cruzado uma linha, uma linha que você não queria cruzar e eu sabia que você não queria nada além disso"},
     { text: "E eu sabia que você não iria querer manter contato depois daquilo, você só queria que eu fosse embora..."},
-    { text: "Dias depois conversamos sobre o ocorrido"},
+    { text: "Dias depois conversamos sobre o ocorrido... e como eu já sabia você tava com raiva... chateada, decepcionada e desanimada cmg"},
+    { text: "Mal queria falar comigo e voltou a me tratar com indiferença. Tentei conversar, explicar o porquê, te fazer entender o que eu senti e o que eu sinto"},
+    { text: "Mas era tudo em vão... isso não é algo que você queria... nós... não é algo que você quer... eu... não sou o que você quer, eu sabia que não importava o que eu falasse, nada iria mudar"},
+    { text: "A minima esperança que eu tinha de conseguir você, já tinha ido faz tempo. Todas as investidas, tentativas de te trazer... eu só estava correndo atrás de algo impossivel"},
+    { text: "Correndo atrás de algo que não existe mais, uma possibilidade de algo que não tinha chance de acontecer... mas ainda sim..."},
+    { text: "Eu tentava... se houvesse nem que fosse 1% de chance de conseguir você, eu estava mais do que disposto a tentar, disposto a lutar por algo que valhe a pena"},
+    { text: "Por que você valhe a pena..."},
+    { text: "Pra mim você é incrível, uma pessoa maravilhosa e extraordinária pra mim"},
+    { text: "Não é perfeita, nem de longe, mas mesmo com todos os problemas, mesmo com todas as adversidades..."},
+    { text: "Eu ainda te amo..."},
+    { text: "Amo o seu jeito, Amo a maneira que fica quando ta estressada, Amo que sempre tenta ajudar os outros, Amo que você sempre ta lá por quem você se importa, não importa o que aconteça"},
+    { text: "Amo como você guarda as coisas com carinho, Amo o jeito que fica comendo algo gostoso, Amo quando fica dançando do nada, Amo quando fica sem graça"},
+    { text: "Amo seu sorriso lindo, Amo seus olhos escuros como o espaço, Amo seu cabelo cheiroso e bonito"},
+    { text: "Amo tudo de bom e ruim em você"},
+    { text: "Me sinto bem só de simplesmente estar perto de você, fico feliz só de olhar pra você, fico em paz com uma simples mensagem sua"},
+    { text: "Mas... eu não sou o que você quer... e não adianta o quanto eu te queira, você não me quer, e nisso eu não posso fazer nada"},
+    { text: "Só posso aceitar... seguir em frente e continuar vivendo minha vida, como eu tava fazendo~. Começar a vizualisar uma vida sem você ao meu lado"},
+    { text: "Só posso aceitar... seguir em frente e continuar vivendo minha vida, como eu tava fazendo~. Vizualisar uma vida sem você ao meu lado, sem a pessoa que eu mais quero ao meu lado..."},
+    { text: "Mas achei... que a gente poderia manter contato, continuar vendo as series, conversando sobre o dia a dia, mas isso também você não queria mais..."},
+    { text: "Desde antes do evento já mal tava falando comigo, parou de mandar as fotos do seu dia, me respondia poucas vezes ao dia, eu sabia que tava esfriando... só não sabia o pq"},
+    { text: "E depois da conversa piorou, me respondia uma vez no dia, as vezes nem me respondia, parecia que eu tava forçando algo que você não queria"},
+    { text: "E pra surpresa de ninguem... você realmente não queria, não queria mais falar cmg, ter qlqr contato cmg, o que eu já recebia pouco... virou nada"},
+    { text: "Parei de mandar msg pra ver se você mandaria, pensei 'se ela gosta de mim, se ela quer ter oq quer q seja cmg, ela vai me mandar uma msg, vai vir atrás de mim'"},
+    { text: "Mas você não veio... esperei por um contato seu, um sinal, rezei por qlqr coisa sua, mas mesmo assim nada adiantava"},
+    { text: "Eu sabia que era feio, me prender tanto a um amor impossivel, me humilhar tanto por algo que eu sei que não vai acontecer, não importa o que eu fizesse"},
+    { text: "Por isso eu sigo minha vida, fazendo minhas coisas, me tornando o melhor de mim por mim, e não por alguem"},
+    { text: "Vivo minha vida um dia de cada vez, me colocando em primeiro lugar sempre e fazendo tudo que for possível pras pessoas com quem eu me importo"},
+    { text: "Por que essas poucas pessoas... ainda se importam comigo, lembram de mim, por mais ruins e otárias que elas possam ser as vezes, elas não me abandonam quando preciso delas"},
+    { text: "Pessoas me deixaram de lado quando precisei, pararam de falar comigo e até foram atrás do que eu queria pra mim, mas essas pessoas com quem realmente se importam comigo... são especiais"},
+    { text: "Por elas eu faria de tudo, e faço tudo que me cabe para ajuda-las, e estar lá por elas"},
+    { text: "Só que..."},
+    { text: "Ainda sinto sua falta..."},
+    { text: "Uma parte de mim, que é incapaz de te esquecer, ainda sente sua falta"},
+    { text: "Todos os dias você é a primeira pessoa que me vem a mente, e a ultima que eu penso quando vou dormir"},
+    { text: "Aparece em todos os meus sonhos, e sempre penso em você em qualquer coisa que acontece comigo"},
+    { text: "Sinto falta de você do meu lado, do jeito que me olhava apaixonada, do jeito que ria quando tava comigo, de como lutava pelo melhor da gente"},
+    { text: "Falta de como ficava quando eu te dava presentes, de como você ficava comprando um hamburguer pra mim, de como dizia com dificuldade que me amava..."},
+    { text: "De como ficava boba comigo tentando achar os versículos, de como me incentivava a me tornar o melhor de mim... o melhor de mim pra mim e pra nós"},
+    { text: "Sinto falta de algo que não existe mais... mas eu amo quem você é, por que eu amo você"},
+    { text: "Amo você por você ser você",
+      extras: (
+        <img
+          src="/one-history/img/thsozrave.jpeg"
+          alt="Linda Moça"
+          className="h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: `Foram 245 dias inesquecíveis com você... os melhores 245 dias de todos os ${dateLife} dias da minha vida`,
+      extras: (
+        <img
+          src="/one-history/img/hands_to_horizon.jpg"
+          alt="Linda Moça"
+          className="w-60 h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: `E agora fazem ${displayDateLifeAloneExtense} sem você... ${dateLifeAlone} dias sem o amor da minha vida ao meu lado... ${dateLifeAlone} dias rezando pra ter você de volta`},
+    { text: "Mas ainda sim... quero você"},
+    { text: "Quero você comigo"},
+    { text: "Quero você pra mim"},
+    { text: "Quero poder construir uma vida com você, aproveitar cada segundo que tenho por nós, e por você"},
+    { text: "Quero estar com você, e quero sentir que você quer estar comigo também..."},
+    { text: "Eu te amo",
+      extras: (
+        <img
+          src="/one-history/img/kiss_on_beach.jpg"
+          alt="Linda Moça"
+          className="h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "Sempre amei",
+      extras: (
+        <img
+          src="/one-history/img/laughing_at_beach.jpg"
+          alt="Linda Moça"
+          className="h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "E sempre vou amar",
+      extras: (
+        <img
+          src="/one-history/img/hug_while_sitting.jpg"
+          alt="Linda Moça"
+          className="h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "Por isso to aqui... esperando uma mensagem sua... um sinal seu..."},
+    { text: "Pra voltarmos a ser eu e você",
+      extras: (
+        <img
+          src="/one-history/img/two_faces.jpg"
+          alt="Linda Moça"
+          className="h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "Provavelmente esqueci de dizer algo nisso tudo... sabe como eu sou kkkkk..."},
+    { text: "Mas acho que consegui passar o que eu queria"},
+    { text: "Não precisa responder isso se não quiser, pode só ignorar e fingir que não viu isso aqui"},
+    { text: "Mas..."},
+    { text: "Pensa nisso... sei que você pensa em tudo kkkk, então pensa nisso aqui também"},
+    { text: "Quero você!!!"},
+    { text: "Quero voltar com você!!!"},
+    { text: "Mas quero que me queira também..."},
+    { text: "Quero que queira a gente de novo"},
+    { text: "Por que eu te quero"},
+    { text: "E to disposto a tudo por você"},
     {
       text: "Aqui aparece uma imagem apenas nesta frase.",
       extras: (
