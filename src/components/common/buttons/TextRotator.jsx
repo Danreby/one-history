@@ -15,11 +15,14 @@ const TextRotator = forwardRef(
       showControls = true,
       mobileBreakpoint = 768,
       onIndexChange,
-      isLocked = false, 
+      isLocked = false,
     },
     ref
   ) => {
     const [index, setIndex] = useState(0);
+    const indexRef = useRef(index);
+    useEffect(() => { indexRef.current = index; }, [index]);
+
     const [visibleText, setVisibleText] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const [animClass, setAnimClass] = useState("");
@@ -46,12 +49,12 @@ const TextRotator = forwardRef(
     useImperativeHandle(
       ref,
       () => ({
-        next: () => goToIndex(index + 1, "next"),
-        prev: () => goToIndex(index - 1, "prev"),
-        goTo: (i) => goToIndex(i, i > index ? "next" : "prev"),
-        getIndex: () => index,
+        next: () => goToIndex(indexRef.current + 1, "next", true),
+        prev: () => goToIndex(indexRef.current - 1, "prev", true),
+        goTo: (i) => goToIndex(i, i > indexRef.current ? "next" : "prev", true),
+        getIndex: () => indexRef.current,
       }),
-      [index, groups]
+      [groups]
     );
 
     useEffect(() => {
@@ -143,9 +146,17 @@ const TextRotator = forwardRef(
       }, letterDelay);
     }
 
-    function goToIndex(nextIndex, dir = "next") {
+    function goToIndex(nextIndex, dir = "next", force = false) {
       if (!groups || groups.length === 0) return;
-      if (isTyping) return;
+      if (isTyping && !force) return;
+
+      if (isTyping && force) {
+        if (typingTimerRef.current) {
+          clearInterval(typingTimerRef.current);
+          typingTimerRef.current = null;
+        }
+        setIsTyping(false);
+      }
 
       clearAllTimers();
 
@@ -180,6 +191,11 @@ const TextRotator = forwardRef(
       if (!isMobile) return;
       if (isTyping) return;
       if (e.button && e.button !== 0) return;
+
+      if (e.target && e.target.closest && e.target.closest('button, a, input, textarea, select, [role="button"]')) {
+        return;
+      }
+
       const target = e.currentTarget;
       try {
         target.setPointerCapture(e.pointerId);
@@ -323,6 +339,7 @@ const TextRotator = forwardRef(
               disabled={isTyping || isLocked}
               aria-label="Anterior"
               className="text-gray-400 font-bold text-2xl leading-none transition p-2 disabled:opacity-40"
+              type="button"
             >
               ←
             </button>
@@ -348,6 +365,7 @@ const TextRotator = forwardRef(
               disabled={isTyping || isLocked}
               aria-label="Próxima"
               className="text-gray-400 font-bold text-2xl leading-none transition p-2 disabled:opacity-40"
+              type="button"
             >
               →
             </button>
