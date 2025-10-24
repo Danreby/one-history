@@ -344,6 +344,35 @@ export const Home = () => {
     { text: "Por que eu te quero"},
     { text: "E to disposto a tudo por você"},
     { text: "E quero saber se também está disposta a isso"},
+    { text: "Eu sei que não demos certo uma vez... mas por que não arriscarmos de novo?"},
+    { text: "Se não arriscar plantar... nunca vai poder colher os frutos que podem dar"},
+    { text: "Sim, a planta pode pegar chuva, podem pisar nela, muitas coisas podem acontecer pra planta não vingar"},
+    { text: "Mas... se estivermos dispostos a ajuda-la a crescer, a cuidar dela, ela vai poder crescer e se tornar algo lindo"},
+    { text: "E o que eu sinto por você é verdadeiro, desde o dia em que me deu aquele papel naquele ônibus... é você quem eu quero pra mim"},
+    { text: "Só me arrependo de ter deixado acabar... de não ter lutado mais pela gente, por você"},
+    { text: "Mas dou graças a Deus todos os dias por ele ter me apresentado você, a pessoa mais incrível que eu poderia ter encontrado na minha vida"},
+    { text: "A pessoa por quem eu trocaria tudo pra ter de volta, por quem eu faria de tudo pra ter uma vida juntos",
+      extras: (
+        <img
+          src="/one-history/img/hands_to_horizon.jpg"
+          alt="Linda Moça"
+          className="w-60 h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "Se eu pudesse voltar no passado... ainda sim te escolheria, escolheria a melhor decisão da minha vida"},
+    { text: "Se eu tivesse 5 vidas, eu renasceria em 5 cidades diferentes, teria 5 empregos diferentes, comeria 5 coisas deliciosas em cada uma, e em todas elas me apaixonaria pela mesma pessoa"},
+    { text: "Me apaixonaria por você, e sempre por você",
+      extras: (
+        <img
+          src="/one-history/img/us_couch.jpg"
+          alt="Linda Moça"
+          className="w-60 h-auto rounded-md shadow-md"
+        />
+      ),
+    },
+    { text: "Você é o meu amor eterno, a pessoa que meu coração escolheu, por quem eu aguardo até hoje"},
+    { text: "Então eu quero te perguntar... te pedir pra me escolher, escolher a gente... então..."},
     { text: "Volta comigo?",
       extras: (
         <div className="flex gap-4">
@@ -372,6 +401,7 @@ export const Home = () => {
     { text: "Um sonho incrível que não tem como virar realidade..."},
     { text: "Mas mesmo sem você... você continua sendo a pessoa mais incrivel e maravilhosa que eu conheço"},
     { text: "A pessoa que veio do nada, e tomou um espaço no meu coração e está nele até mesmo hoje em dia"},
+    { text: "Eu te amo"},
     { text: "Continuarei te amando, não importa quanto tempo passe, não importa o que falem sobre, não importa o que aconteça"},
     { text: "Será você no meu coração"},
     { text: "Daqui até o infinito..."},
