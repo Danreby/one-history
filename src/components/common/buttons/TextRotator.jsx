@@ -14,6 +14,8 @@ const TextRotator = forwardRef(
       transitionDuration = 500,
       showControls = true,
       mobileBreakpoint = 768,
+      onIndexChange,
+      isLocked = false, 
     },
     ref
   ) => {
@@ -47,6 +49,7 @@ const TextRotator = forwardRef(
         next: () => goToIndex(index + 1, "next"),
         prev: () => goToIndex(index - 1, "prev"),
         goTo: (i) => goToIndex(i, i > index ? "next" : "prev"),
+        getIndex: () => index,
       }),
       [index, groups]
     );
@@ -68,13 +71,23 @@ const TextRotator = forwardRef(
     }, []);
 
     useEffect(() => {
-      if (index >= groups.length && groups.length > 0) {
+      if (groups.length > 0 && index >= groups.length) {
         const idx = 0;
         setIndex(idx);
         startTyping(idx);
       }
       setInputValue(groups.length > 0 ? String(index + 1) : "0");
     }, [groups, index]);
+
+    useEffect(() => {
+      if (typeof onIndexChange === "function") {
+        try {
+          onIndexChange(index);
+        } catch (err) {
+          //
+        }
+      }
+    }, [index]);
 
     function clearAllTimers() {
       if (typingTimerRef.current) {
@@ -131,6 +144,7 @@ const TextRotator = forwardRef(
     }
 
     function goToIndex(nextIndex, dir = "next") {
+      if (!groups || groups.length === 0) return;
       if (isTyping) return;
 
       clearAllTimers();
@@ -162,6 +176,7 @@ const TextRotator = forwardRef(
     const handlePrev = () => goToIndex(index - 1, "prev");
 
     function onPointerDown(e) {
+      if (isLocked) return;
       if (!isMobile) return;
       if (isTyping) return;
       if (e.button && e.button !== 0) return;
@@ -177,6 +192,7 @@ const TextRotator = forwardRef(
     }
 
     function onPointerMove(e) {
+      if (isLocked) return;
       if (!isMobile) return;
       if (!draggingRef.current) return;
       if (pointerIdRef.current !== null && e.pointerId !== pointerIdRef.current) return;
@@ -187,6 +203,7 @@ const TextRotator = forwardRef(
     }
 
     function endPointerDrag(e) {
+      if (isLocked) return;
       if (!isMobile) return;
       if (!draggingRef.current) return;
       draggingRef.current = false;
@@ -209,6 +226,7 @@ const TextRotator = forwardRef(
     }
 
     function onPointerCancel(e) {
+      if (isLocked) return;
       if (!isMobile) return;
       draggingRef.current = false;
       setDragOffset(0);
@@ -231,7 +249,6 @@ const TextRotator = forwardRef(
       if (!groups || groups.length === 0) return;
       const parsed = parseInt(inputValue, 10);
       if (Number.isNaN(parsed)) {
-        // reset to current
         setInputValue(String(index + 1));
         return;
       }
@@ -303,7 +320,7 @@ const TextRotator = forwardRef(
           >
             <button
               onClick={handlePrev}
-              disabled={isTyping}
+              disabled={isTyping || isLocked}
               aria-label="Anterior"
               className="text-gray-400 font-bold text-2xl leading-none transition p-2 disabled:opacity-40"
             >
@@ -319,7 +336,7 @@ const TextRotator = forwardRef(
                 onChange={handleInputChange}
                 onKeyDown={handleInputKeyDown}
                 onBlur={commitInputValue}
-                disabled={isTyping}
+                disabled={isTyping || isLocked}
                 aria-label="Número do texto atual — digite um número e pressione Enter"
                 className="w-10 text-center border-gray-300 text-lg focus:outline-none"
               />
@@ -328,7 +345,7 @@ const TextRotator = forwardRef(
 
             <button
               onClick={handleNext}
-              disabled={isTyping}
+              disabled={isTyping || isLocked}
               aria-label="Próxima"
               className="text-gray-400 font-bold text-2xl leading-none transition p-2 disabled:opacity-40"
             >

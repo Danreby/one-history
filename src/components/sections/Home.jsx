@@ -10,9 +10,13 @@ export const Home = () => {
   const [displayDateLifeAloneExtense, setDisplayDateLifeAloneExtense] = useState("");
 
   useEffect(() => {
-    const startUTC = Date.UTC(2003, 3, 15); 
+    const startUTC = Date.UTC(2003, 3, 15);
     const today = new Date();
-    const todayUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+    const todayUTC = Date.UTC(
+      today.getUTCFullYear(),
+      today.getUTCMonth(),
+      today.getUTCDate()
+    );
     const msPerDay = 1000 * 60 * 60 * 24;
     setDateLife(Math.floor((todayUTC - startUTC) / msPerDay));
 
@@ -50,6 +54,35 @@ export const Home = () => {
     setDisplayDateLifeAloneExtense(`${yLabel}, ${mLabel} e ${dLabel}`);
   }, []);
 
+  const whatsappPhone = "5521964392099";
+
+  const handleYes = () => {
+    const url = `https://wa.me/${whatsappPhone}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleNo = () => {
+    const r = rotatorRef.current;
+    if (r && typeof r.next === "function") {
+      try {
+        r.next();
+        return;
+      } catch (err) {
+        //
+      }
+    }
+
+    try {
+      const root = document.querySelector(".text-rotator-draggable");
+      if (!root) return;
+      const btn = root.querySelector(
+        'button[aria-label="Próxima"], button[aria-label="Próximo"], button[aria-label="Next"], button.next, .next-btn'
+      );
+      if (btn) btn.click();
+    } catch (err) {
+      // 
+    }
+  };
 
   const groups = [
     { text: "Oi..." },
@@ -314,18 +347,104 @@ export const Home = () => {
     { text: "Quero que queira a gente de novo"},
     { text: "Por que eu te quero"},
     { text: "E to disposto a tudo por você"},
-    {
-      text: "Aqui aparece uma imagem apenas nesta frase.",
+    { text: "E quero saber se também está disposta a isso"},
+    { text: "Volta comigo?",
       extras: (
-        <img
-          src="/one-history/img/linda_menina.png"
-          alt="Linda Moça"
-          className="w-40 h-auto rounded-md shadow-md"
-        />
+        <div className="flex gap-4">
+          <button
+            onClick={handleYes}
+            className="border-green-300 rounded px-6 py-4 bg-green-500 text-red"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+            </svg>
+          </button>
+          <button
+            onClick={handleNo}
+            className="border-red-300 rounded px-6 py-4 bg-red-500 text-black"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+              <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586M7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77"/>
+            </svg>
+          </button>
+        </div>
       ),
     },
+    { text: "Entendi..."},
+    { text: "Tudo bem... é a sua escolha, não tem nada de errado"},
+    { text: "O que eu quero é apenas um sonho egoista"},
+    { text: "Um sonho incrível que não tem como virar realidade..."},
+    { text: "Mas mesmo sem você... você continua sendo a pessoa mais incrivel e maravilhosa que eu conheço"},
+    { text: "A pessoa que veio do nada, e tomou um espaço no meu coração e está nele até mesmo hoje em dia"},
+    { text: "Continuarei te amando, não importa quanto tempo passe, não importa o que falem sobre, não importa o que aconteça"},
+    { text: "Será você no meu coração"},
+    { text: "Daqui até o infinito..."},
+    { text: "E além... 🚀"},
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const [showTimer, setShowTimer] = useState(false);
+  const [countdown, setCountdown] = useState(10);
+  const countdownRef = useRef(null);
+
+  const handleIndexChange = (idx) => {
+    setCurrentIndex(idx);
+    const isLast = groups.length > 0 && idx === groups.length - 1;
+    if (isLast) {
+      setControlsVisible(false);
+      startCountdown();
+    } else {
+      stopCountdown();
+      setControlsVisible(true);
+    }
+  };
+
+  function startCountdown() {
+    stopCountdown();
+    setCountdown(10);
+    setShowTimer(true);
+
+    countdownRef.current = setInterval(() => {
+      setCountdown((c) => {
+        if (c <= 1) {
+          clearInterval(countdownRef.current);
+          countdownRef.current = null;
+          setShowTimer(false);
+
+          try {
+            window.close();
+          } catch (err) {}
+
+          setTimeout(() => {
+            try {
+              if (!window.closed) {
+                window.location.href = "/";
+              }
+            } catch (err) {}
+          }, 300);
+
+          return 0;
+        }
+        return c - 1;
+      });
+    }, 1000);
+  }
+
+  function stopCountdown() {
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
+    setShowTimer(false);
+    setCountdown(10);
+  }
+
+  useEffect(() => {
+    return () => {
+      stopCountdown();
+    };
+  }, []);
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative">
@@ -337,10 +456,27 @@ export const Home = () => {
               groups={groups}
               letterDelay={50}
               transitionDuration={500}
-              showControls={true}
+              showControls={controlsVisible}
               mobileBreakpoint={768}
+              onIndexChange={handleIndexChange}
+              isLocked={showTimer}
             />
           </div>
+
+          {showTimer && (
+            <div className="mt-6 flex items-center justify-center gap-4">
+              <img
+                src="/one-history/wired-outline-45-clock-time-hover-pinch.gif"
+                alt="Relógio animado"
+                className="w-12 h-12 object-contain"
+                loading="lazy"
+              />
+              <div className="text-xl font-bold">
+                <span className="ml-1 text-2xl">{countdown}</span>{" "}
+                segundo{countdown !== 1 ? "s" : ""}...
+              </div>
+            </div>
+          )}
         </div>
       </RevealOnScroll>
     </section>
