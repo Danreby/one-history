@@ -265,6 +265,7 @@ export const Home = () => {
     { text: "Só que..."},
     { text: "Ainda sinto sua falta..."},
     { text: "Uma parte de mim, que é incapaz de te esquecer, ainda sente sua falta"},
+    { text: "Sinto sua falta todo santo dia, sempre tento me ocupar... pra não pensar em você... mas sempre acabo pensando no amor da minha vida"},
     { text: "Todos os dias você é a primeira pessoa que me vem a mente, e a ultima que eu penso quando vou dormir"},
     { text: "Aparece em todos os meus sonhos, e sempre penso em você em qualquer coisa que acontece comigo"},
     { text: "Sinto falta de você do meu lado, do jeito que me olhava apaixonada, do jeito que ria quando tava comigo, de como lutava pelo melhor da gente"},
@@ -322,6 +323,9 @@ export const Home = () => {
         />
       ),
     },
+    { text: "Te amo com todo meu coração, e as vezes chega a doer de tanta falta que sinto de você, parece que meu peito ta sendo esfaqueado o tempo todo"},
+    { text: "Pq sei que te amo, mas sei que você não sente o mesmo, e isso doi, nunca amei ngm do jeito que eu amo você"},
+    { text: "Mas mesmo doendo, mesmo ficando mal só por sentir sua falta... eu ainda te amo, com todo meu coração"},
     { text: "Por isso to aqui... esperando uma mensagem sua... um sinal seu..."},
     { text: "Pra voltarmos a ser eu e você",
       extras: (
@@ -372,7 +376,7 @@ export const Home = () => {
       ),
     },
     { text: "Você é o meu amor eterno, a pessoa que meu coração escolheu, por quem eu aguardo até hoje"},
-    { text: "Então eu quero te perguntar... te pedir pra me escolher, escolher a gente... então..."},
+    { text: "Então eu quero te perguntar... te pedir pra me escolher, escolher a gente... então eu te pergunto..."},
     { text: "Volta comigo?",
       extras: (
         <div className="flex gap-4">
