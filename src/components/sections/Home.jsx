@@ -412,7 +412,7 @@ export const Home = () => {
     { text: "Pode ser egoista da minha parte, pode ser teimosia querer que seja do meu jeito... mas esse 'nós' eu só aceito se for como eu quero"},
     { text: "Eu to disposto a tudo por você, disposto a ir onde for e fazer o que for pra ter o futuro que eu quero, e eu quero que seja com você"},
     { text: "Então me ajuda a aprender, aprender a ser quem você quer com você, quem você merece ter pra você. Me ajuda aprender a ser o melhor pra nós"},
-    { text: "Se pra você ainda há uma chance de ser eu pra você, se pra você ainda existe a possibilidade de termor um futuro juntos"},
+    { text: "Se ainda há uma chance de ser eu pra você, se pra você ainda existe a possibilidade de termor um futuro juntos"},
     { text: "Gostaria muito que me desse essa oportunidade, a oportunidade de fazer nossa história voltar a andar"},
     { text: "Eu quero você, e quero que seja você. Eu quero aprender a te amar do jeito que você quer e merece ser amada"},
     { text: "Eu quero que você olhe pra mim e veja quem você quer ter e tem orgulho de ter ao seu lado"},
