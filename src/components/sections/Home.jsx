@@ -403,7 +403,16 @@ export const Home = () => {
     { text: "Não importa quanto tempo passe, não importa o que aconteça, não importa o que diga, eu sempre vou te amar"},
     { text: "E tudo que eu mais quero na minha vida inteira, é ter mais uma chance de ter uma história com você"},
     { text: "Então eu quero te perguntar... te pedir pra me escolher, escolher a gente... acredita em mim e me da mais uma chance de fazer o nós ser real..."},
-    { text: "Voltaria comigo?",
+    { text: "Me daria mais uma chance? não de ser só seu amigo, mas de ser seu namorado, seu companheiro, seu parceiro, seu amor..."},
+    { text: "Uma chance de fazer você feliz, de cuidar de você, de te amar do jeito que você merece ser amada"},
+    { text: "De continuar nossa história... fazer acontecer, fazer o nós acontecer"},
+    { text: "Vamos melhorar juntos, vamos cuidar um do outro, vamos fazer dar certo, sermos quem queremos ser um pelo outro"},
+    { text: "Lutar por nós, lutar pra sermos os melhores um pro outro"},
+    { text: "Por que você é a pessoa que eu quero pra mim, e eu só aceito que seja você, e ninguém além de você"},
+    { text: "Pode ser egoista da minha parte, pode ser teimosia querer que seja do meu jeito... mas esse 'nós' eu só aceito se for como eu quero"},
+    { text: "Eu to disposto a tudo por você, disposto a ir onde for e fazer o que for pra ter o futuro que eu quero, e eu quero que seja com você"},
+    { text: "Então Thaís..."},
+    { text: "Volta comigo?",
       extras: (
         <div className="flex gap-4">
           <button
