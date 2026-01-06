@@ -62,7 +62,8 @@ export const Home = () => {
   const whatsappPhone = "5521964392099";
 
   const handleYes = () => {
-    const url = `https://wa.me/${whatsappPhone}`;
+    const message = encodeURIComponent("🐤❤️🐻");
+    const url = `https://wa.me/${whatsappPhone}?text=${message}`;
     window.open(url, "_blank", "noopener,noreferrer");
 
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
