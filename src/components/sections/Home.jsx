@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
 import TextRotator from "../common/buttons/TextRotator";
+import emailjs from "@emailjs/browser";
 
 export const Home = () => {
   const rotatorRef = useRef(null);
@@ -8,6 +9,10 @@ export const Home = () => {
   const [dateLife, setDateLife] = useState("");
   const [dateLifeAlone, setDateLifeAlone] = useState(0);
   const [displayDateLifeAloneExtense, setDisplayDateLifeAloneExtense] = useState("");
+
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_SERVICE_ID || "service_rn3mjlc";
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID || "template_4s5gyn4";
+  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY || "ZndsOsxNK4om9i9iz";
 
   useEffect(() => {
     const startUTC = Date.UTC(2003, 3, 15);
@@ -59,9 +64,43 @@ export const Home = () => {
   const handleYes = () => {
     const url = `https://wa.me/${whatsappPhone}`;
     window.open(url, "_blank", "noopener,noreferrer");
+
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      return;
+    }
+
+    emailjs
+      .send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          to_email: "rolimbernardo6@gmail.com",
+          message: "clicaram no sim",
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+      .catch(() => {
+        // 
+      });
   };
 
   const handleNo = () => {
+    if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
+      emailjs
+        .send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            to_email: "rolimbernardo6@gmail.com",
+            message: "clicaram no não",
+          },
+          EMAILJS_PUBLIC_KEY
+        )
+        .catch(() => {
+          //
+        });
+    }
+
     const r = rotatorRef.current;
     if (r && typeof r.next === "function") {
       r.next(); 
