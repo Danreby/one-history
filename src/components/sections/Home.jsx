@@ -62,7 +62,8 @@ export const Home = () => {
   const whatsappPhone = "5521964392099";
 
   const handleYes = () => {
-    const url = `https://wa.me/${whatsappPhone}`;
+    const message = encodeURIComponent("🐤❤️🐻");
+    const url = `https://wa.me/${whatsappPhone}?text=${message}`;
     window.open(url, "_blank", "noopener,noreferrer");
 
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
@@ -471,7 +472,10 @@ export const Home = () => {
     { text: "Mas eu quero fazer direito, parar de vacilar, me tornar o homem que você quer pra você"},
     { text: "Me tornar o melhor de mim por você, e ser o melhor namorado possivel pra você, e um dia o melhor pai pros nossos filhos e o melhor marido pra você"},
     { text: "Eu sei que você não me quer mais, eu sei que eu não sou quem você quer mais, não sou do jeito que você quer"},
-    { text: "Mas se no seu coração ainda tem uma parte que sente algo por mim, alguma parte que ainda me ama"},
+    { text: "Mas eu acredito que nossa história não acabou, eu acredito que eu e você ainda temos muito a proporcionar juntos, eu sei que podemos ser muito felizes juntos"},
+    { text: "Eu sei que podemos fazer isso dar certo, nós querermos, e eu tenho toda certeza de que é isso que eu quero, quero mais que tudo ter você comigo e ter uma vida inteira com você"},
+    { text: "Você é quem eu quero e ninguém além de você. E basta você me querer também... querer a gente de novo... e a gente faz acontecer, faz dar certo"},
+    { text: "Então se no seu coração ainda tem uma parte que sente algo por mim, alguma parte que ainda me ama"},
     { text: "Então confie em mim, e me ajuda a fazer eu e você acontecer de novo, e dessa vez... ser pra sempre"},
     { text: "Eu sei que não vai voltar a ser como antes, sei que não vai voltar a ser 100% como era, muita coisa aconteceu e isso vai ficar pra sempre marcado"},
     { text: "Mas eu não quero que seja como antes, eu quero que seja melhor, eu quero que sejamos diferentes, e sejamos os melhores um pro outro"},
