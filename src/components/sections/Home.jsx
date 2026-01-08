@@ -473,6 +473,11 @@ export const Home = () => {
     { text: "Eu sei que você não me quer mais, eu sei que eu não sou quem você quer mais, não sou do jeito que você quer"},
     { text: "Mas se no seu coração ainda tem uma parte que sente algo por mim, alguma parte que ainda me ama"},
     { text: "Então confie em mim, e me ajuda a fazer eu e você acontecer de novo, e dessa vez... ser pra sempre"},
+    { text: "Eu sei que não vai voltar a ser como antes, sei que não vai voltar a ser 100% como era, muita coisa aconteceu e isso vai ficar pra sempre marcado"},
+    { text: "Mas eu não quero que seja como antes, eu quero que seja melhor, eu quero que sejamos diferentes, e sejamos os melhores um pro outro"},
+    { text: "Eu tenho certeza que podemos ser os melhores, mudar as coisas que eram um problema antes, e fazer dar certo dessa vez"},
+    { text: "Eu quero ter outra chance com você, outra chance de ser o amor da sua vida, ter um novo amor com você, aprendendo com o que passamos e sendo o melhor pra nós"},
+    { text: "Tenho certeza que de que nós vamos ser diferentes dessa vez, sermos bons um pro outro, daqui pra sempre. Mas preciso que acredite em mim... e acredite no meu coração"},
     { text: "Então Thaís..."},
     { text: "Volta comigo?",
       extras: (
