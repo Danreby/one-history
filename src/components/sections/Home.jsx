@@ -542,7 +542,7 @@ export const Home = () => {
     { text: "Quero que encontre alguém que te valorize, que cuide de você, que te proteja, que te faça sorrir todos os dias"},
     { text: "E se um dia precisar de mim, pra qualquer coisa que seja, eu estou aqui"},
     { text: "Basta você me dizer, e eu apareço no mesmo instante, eu vou correr pra onde for, pra onde você precisar de mim"},
-    { text: "Vou ouvir o que tiver pra falar, ou mesmo só fazer companhia, vou dar tudo de mim pela pessoa mais importante pra mim"}
+    { text: "Vou ouvir o que tiver pra falar, ou mesmo só fazer companhia, vou dar tudo de mim pela pessoa mais importante pra mim"},
     { text: "Só quero que saiba que..."},
     { text: "Eu te amo"},
     { text: "Continuarei te amando, não importa quanto tempo passe, não importa o que falem sobre, não importa o que aconteça"},
