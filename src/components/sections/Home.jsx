@@ -505,7 +505,7 @@ export const Home = () => {
     { text: "Eu quero ter outra chance com você, outra chance de ser o amor da sua vida, ter um novo amor com você, aprendendo com o que passamos e sendo o melhor pra nós"},
     { text: "Tenho certeza que de que nós vamos ser diferentes dessa vez, sermos bons um pro outro, daqui pra sempre. Mas preciso que acredite em mim... e acredite no meu coração"},
     { text: "Então Thaís..."},
-    { text: "Aceita namorar comigo de novo?",
+    { text: "Me permite ser seu namorado de novo?",
       extras: (
         <div className="flex gap-4">
           <button
